@@ -2,6 +2,7 @@ package edu.mum.pairs;
 
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -31,11 +32,14 @@ public class RelativeFrequency extends Configured implements Tool {
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-		job.setOutputKeyClass(Pair.class);
-		job.setOutputValueClass(IntWritable.class);
-//		job.setOutputFormatClass(TextOutputFormat.class);
 		job.setMapperClass(RelativeFrequencyMapper.class);
 		job.setReducerClass(RelativeFrequencyReducer.class);
+		
+		job.setMapOutputKeyClass(Pair.class);
+		job.setMapOutputValueClass(IntWritable.class);
+		
+		job.setOutputKeyClass(Pair.class);
+		job.setOutputValueClass(DoubleWritable.class);
 
 		int returnValue = job.waitForCompletion(true) ? 0 : 1;
 		System.out.println("job.isSuccessful " + job.isSuccessful());
