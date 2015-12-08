@@ -2,6 +2,7 @@ package edu.mum.pairs;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 import org.apache.hadoop.io.IntWritable;
@@ -11,7 +12,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 public class RelativeFrequencyMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
 
-	private Map<Pair, Integer> map = new HashMap<Pair, Integer>();
+	private Map<Pair, Integer> map = new Hashtable<>();
 
 	@Override
 	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -28,7 +29,7 @@ public class RelativeFrequencyMapper extends Mapper<LongWritable, Text, Pair, In
 				Pair starTerm = new Pair(term, "*");
 
 				if (!map.containsKey(starTerm)) {
-					map.put(starTerm, i);
+					map.put(starTerm, 1);
 				} else {
 					map.put(starTerm, map.get(starTerm) + 1);
 				}

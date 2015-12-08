@@ -48,7 +48,13 @@ public class Pair implements WritableComparable<Pair> {
 	}
 
 	public int compareTo(Pair o) {
-		return this.key.compareTo(o.key);
+		int cmp = this.key.compareTo(o.key);
+		 
+        if (cmp != 0) {
+            return cmp;
+        }
+ 
+        return this.value.compareTo(o.value);
 	}
 
 	public void readFields(DataInput in) throws IOException {
@@ -59,6 +65,42 @@ public class Pair implements WritableComparable<Pair> {
 	public void write(DataOutput out) throws IOException {
 		key.write(out);
 		value.write(out);
+	}
+
+	@Override
+	public String toString() {
+		return "(" + key + ", " + value + ")";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
+		result = prime * result + ((value == null) ? 0 : value.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pair other = (Pair) obj;
+		if (key == null) {
+			if (other.key != null)
+				return false;
+		} else if (!key.equals(other.key))
+			return false;
+		if (value == null) {
+			if (other.value != null)
+				return false;
+		} else if (!value.equals(other.value))
+			return false;
+		return true;
 	}
 
 }
