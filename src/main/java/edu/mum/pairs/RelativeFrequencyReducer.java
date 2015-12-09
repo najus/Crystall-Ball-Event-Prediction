@@ -1,6 +1,7 @@
 package edu.mum.pairs;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
@@ -13,12 +14,13 @@ public class RelativeFrequencyReducer extends Reducer<Pair, IntWritable, Pair, D
 	@Override
 	protected void reduce(Pair pair, Iterable<IntWritable> values, Context context)
 			throws IOException, InterruptedException {
+		DecimalFormat decimalFormat = new DecimalFormat("0.000");
 		if (pair.getValue().toString().equals("*")) {
 			totalCount = sumAllValues(values);
 		} else {
 			int sum = sumAllValues(values);
-			double value = (double) sum / (double) totalCount;
-			context.write(pair, new DoubleWritable(value));
+			String value = decimalFormat.format((double) sum / (double) totalCount);
+			context.write(pair, new DoubleWritable(Double.parseDouble(value)));
 		}
 	}
 
