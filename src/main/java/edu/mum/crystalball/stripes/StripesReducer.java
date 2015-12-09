@@ -34,12 +34,12 @@ public class StripesReducer extends Reducer<Text, MapWritable, Text, Text> {
 		for (Entry<Writable, Writable> entry : sumOfAllStripes.entrySet()) {
 			if (stringBuilder.length() > 0)
 				stringBuilder.append(",");
-			stringBuilder.append("(").append(entry.getKey().toString()).append(",")
+			stringBuilder.append(" (").append(entry.getKey().toString()).append(",")
 					.append(decimalFormat.format(Integer.parseInt(entry.getValue().toString()) / (double) totalCount))
-					.append(") ");
+					.append(")");
 		}
 
-		context.write(key, new Text("[ " + stringBuilder.toString() + "] "));
+		context.write(key, new Text("[" + stringBuilder.toString() + " ]"));
 
 	}
 
