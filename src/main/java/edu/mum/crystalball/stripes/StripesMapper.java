@@ -28,7 +28,7 @@ public class StripesMapper extends Mapper<LongWritable, Text, Text, MapWritable>
 			MapWritable mp = map.get(term);
 			
 			for (int j = i + 1; j < allTerms.length; j++) {
-				if (term.equals(allTerms[j]))
+				if (term.toString().equals(allTerms[j]))
 					break;
 				
 				Text u = new Text(allTerms[j]);
