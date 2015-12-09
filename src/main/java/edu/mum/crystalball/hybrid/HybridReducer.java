@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -17,16 +18,18 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
 	@Override
 	protected void setup(Context context) throws IOException, InterruptedException {
 		total = 0;
-		map = new HashMap<>();
+		map = new TreeMap<Pair, Integer>();
 	}
 
 	@Override
 	protected void reduce(Pair key, Iterable<IntWritable> values, Context context)
 			throws IOException, InterruptedException {
-
 		total = sumAllValues(values);
 		System.out.println(key + " :: " + total);
-		map.put(key, total);
+		String kS = key.getKey().toString();
+		String vS = key.getValue().toString();
+		Pair p = new Pair(kS, vS);
+		map.put(p, total);
 	}
 
 	@Override
