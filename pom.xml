@@ -5,9 +5,10 @@
 	<artifactId>CrystalBall</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CrystalBall</name>
-	
+
 	<properties>
 		<hadoop.version>2.6.0</hadoop.version>
+		<jdk.version>1.8</jdk.version>
 	</properties>
 
 	<dependencies>
@@ -55,4 +56,23 @@
 			<url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
 		</repository>
 	</repositories>
+
+	<build>
+		<finalName>crystalball</finalName>
+
+		<plugins>
+
+			<!-- Set a JDK compiler level -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+	</build>
 </project>
