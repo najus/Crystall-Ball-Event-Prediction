@@ -1,7 +1,7 @@
 #!/bin/bash
-# Description: Cookbook to run hadoop jobs
+# Description: Recipe to run hadoop jobs
 # Author: Sachin Kushwaha
-# Date: December 9, 2015
+# Date: December 10, 2015
 # Note: Script not complete, still in development. :)
 
 HADOOP="hadoop"
@@ -12,9 +12,9 @@ allJobs="1 2 3 4"
 
 printUsage(){
 echo "
-    sh cookbook.sh all              // run all jobs
-    sh cookbook.sh list             // list the jobs    
-    sh cookbook.sh jobs=2,3,4,7     // run jobs 2 3 4 and 7
+    sh recipe.sh all              // run all jobs
+    sh recipe.sh list             // list the jobs    
+    sh recipe.sh jobs=2,3,4,7     // run jobs 2 3 4 and 7
 "
 }
 
@@ -23,14 +23,14 @@ echo "
 runJob(){
 	START=$(date +%s)
 	case $1 in
-		1)  $HADOOP jar $JAR -job WordCount -jobConfig classPath:jobconfig/wordcount/WordCount.jobcfg
+		1)  $HADOOP jar $JAR edu.mum.wordcount.WordCount /wordcount/input/wordcount.txt /wordcount/output
 		 	;;
-#		2)  $HADOOP jar $JAR -job PairsApproach -jobConfig classPath:jobconfig/pairsapproach/PairsApproach.jobcfg
-#		 	;;
-#		3)  $HADOOP jar $JAR -job StripesApproach -jobConfig classPath:jobconfig/stripesapproach/StripesApproach.jobcfg
-#		 	;;
-#		4)  $HADOOP jar $JAR -job HybridApproach -jobConfig classPath:jobconfig/hybridapproach/HybridApproach.jobcfg
-#		    ;;
+		2)  $HADOOP jar $JAR edu.mum.pairs.RelativeFrequency /relativefrequency/input/sample.txt /relativefrequency/output/pairs
+		 	;;
+		3)  $HADOOP jar $JAR edu.mum.crystalball.stripes.StripesDriver /relativefrequency/input/sample.txt /relativefrequency/output/stripes
+		 	;;
+		4)  $HADOOP jar $JAR edu.mum.crystalball.hybrid.HybridDriver /relativefrequency/input/sample.txt /relativefrequency/output/hybrid
+		    ;;
 	esac
 
 	if  [ $? -eq 0 ]; then
