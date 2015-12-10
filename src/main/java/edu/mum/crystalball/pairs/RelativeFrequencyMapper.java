@@ -1,4 +1,4 @@
-package edu.mum.pairs;
+package edu.mum.crystalball.pairs;
 
 import java.io.IOException;
 import java.util.HashMap;

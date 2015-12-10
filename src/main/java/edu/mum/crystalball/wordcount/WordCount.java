@@ -1,19 +1,20 @@
-package edu.mum.pairs;
+package edu.mum.crystalball.wordcount;
 
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class RelativeFrequency extends Configured implements Tool {
+public class WordCount extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
-		int exitCode = ToolRunner.run(new RelativeFrequency(), args);
+		int exitCode = ToolRunner.run(new WordCount(), args);
 		System.exit(exitCode);
 	}
 
@@ -25,20 +26,17 @@ public class RelativeFrequency extends Configured implements Tool {
 		}
 
 		Job job = new org.apache.hadoop.mapreduce.Job();
-		job.setJarByClass(RelativeFrequency.class);
-		job.setJobName("RelativeFrequency");
+		job.setJarByClass(WordCount.class);
+		job.setJobName("WordCounter");
 
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-		job.setMapperClass(RelativeFrequencyMapper.class);
-		job.setReducerClass(RelativeFrequencyReducer.class);
-		
-		job.setMapOutputKeyClass(Pair.class);
-		job.setMapOutputValueClass(IntWritable.class);
-		
-		job.setOutputKeyClass(Pair.class);
-		job.setOutputValueClass(DoubleWritable.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(IntWritable.class);
+		job.setOutputFormatClass(TextOutputFormat.class);
+		job.setMapperClass(WordCountMapper.class);
+		job.setReducerClass(WordCountReducer.class);
 
 		int returnValue = job.waitForCompletion(true) ? 0 : 1;
 		System.out.println("job.isSuccessful " + job.isSuccessful());

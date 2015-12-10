@@ -1,4 +1,4 @@
-package edu.mum.wordcount;
+package edu.mum.crystalball.wordcount;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
