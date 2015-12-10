@@ -11,10 +11,10 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class WordCount extends Configured implements Tool {
+public class WordCountDriver extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
-		int exitCode = ToolRunner.run(new WordCount(), args);
+		int exitCode = ToolRunner.run(new WordCountDriver(), args);
 		System.exit(exitCode);
 	}
 
@@ -26,7 +26,7 @@ public class WordCount extends Configured implements Tool {
 		}
 
 		Job job = new org.apache.hadoop.mapreduce.Job();
-		job.setJarByClass(WordCount.class);
+		job.setJarByClass(WordCountDriver.class);
 		job.setJobName("WordCounter");
 
 		FileInputFormat.addInputPath(job, new Path(args[0]));

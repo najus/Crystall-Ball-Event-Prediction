@@ -11,7 +11,7 @@ import org.apache.commons.cli.CommandLine;
 import edu.mum.crystalball.mapreduce.utils.ClassUtils;
 import edu.mum.crystalball.mapreduce.utils.ResourceUtils;
 import edu.mum.crystalball.mapreduce.utils.SetUtils;
-import edu.mum.crystalball.mapreduce.wordcount.WordCount;
+import edu.mum.crystalball.mapreduce.wordcount.WordCountLoader;
 
 /**
  * 
@@ -28,7 +28,7 @@ public class App {
 	static Map<String, Class> jobLoaders = new HashMap<>();
 	
 	static {
-		jobLoaders.put("WordCount", WordCount.class);
+		jobLoaders.put("WordCount", WordCountLoader.class);
 	}
 	
 	@SuppressWarnings("rawtypes")

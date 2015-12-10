@@ -20,7 +20,7 @@ import edu.mum.crystalball.mapreduce.utils.ResourceUtils;
  * @author sachinkeshav
  *
  */
-public class WordCount implements JobLoader {
+public class WordCountLoader implements JobLoader {
 
 	public int process(CommandLine commandLine, MyOptions options) throws Exception {
 		
@@ -41,7 +41,7 @@ public class WordCount implements JobLoader {
         }
 
 		Job job = new Job();
-		job.setJarByClass(WordCount.class);
+		job.setJarByClass(WordCountLoader.class);
 		job.setJobName(loaderName);
 
 		FileInputFormat.addInputPath(job, new Path(inputFile));

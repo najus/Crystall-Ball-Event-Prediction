@@ -23,9 +23,9 @@ echo "
 runJob(){
 	START=$(date +%s)
 	case $1 in
-		1)  $HADOOP jar $JAR edu.mum.wordcount.WordCount /wordcount/input/wordcount.txt /wordcount/output
+		1)  $HADOOP jar $JAR edu.mum.crystalball.wordcount.WordCountDriver /wordcount/input/wordcount.txt /wordcount/output
 		 	;;
-		2)  $HADOOP jar $JAR edu.mum.pairs.RelativeFrequency /relativefrequency/input/sample.txt /relativefrequency/output/pairs
+		2)  $HADOOP jar $JAR edu.mum.crystalball.pairs.PairsDriver /relativefrequency/input/sample.txt /relativefrequency/output/pairs
 		 	;;
 		3)  $HADOOP jar $JAR edu.mum.crystalball.stripes.StripesDriver /relativefrequency/input/sample.txt /relativefrequency/output/stripes
 		 	;;

@@ -9,7 +9,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class RelativeFrequencyMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
+public class PairsMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
 
 	private Map<Pair, Integer> map = new HashMap<>();
 

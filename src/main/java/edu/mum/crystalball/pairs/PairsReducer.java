@@ -7,7 +7,7 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class RelativeFrequencyReducer extends Reducer<Pair, IntWritable, Pair, DoubleWritable> {
+public class PairsReducer extends Reducer<Pair, IntWritable, Pair, DoubleWritable> {
 
 	int totalCount = 0;
 

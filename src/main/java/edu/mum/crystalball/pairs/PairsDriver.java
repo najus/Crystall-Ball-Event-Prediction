@@ -10,10 +10,10 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class RelativeFrequency extends Configured implements Tool {
+public class PairsDriver extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
-		int exitCode = ToolRunner.run(new RelativeFrequency(), args);
+		int exitCode = ToolRunner.run(new PairsDriver(), args);
 		System.exit(exitCode);
 	}
 
@@ -25,14 +25,14 @@ public class RelativeFrequency extends Configured implements Tool {
 		}
 
 		Job job = new org.apache.hadoop.mapreduce.Job();
-		job.setJarByClass(RelativeFrequency.class);
+		job.setJarByClass(PairsDriver.class);
 		job.setJobName("RelativeFrequency");
 
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-		job.setMapperClass(RelativeFrequencyMapper.class);
-		job.setReducerClass(RelativeFrequencyReducer.class);
+		job.setMapperClass(PairsMapper.class);
+		job.setReducerClass(PairsReducer.class);
 		
 		job.setMapOutputKeyClass(Pair.class);
 		job.setMapOutputValueClass(IntWritable.class);
