@@ -5,6 +5,7 @@
 # Note: Script not complete, still in development. :)
 
 HADOOP="hadoop"
+REMOVE_OUTPUT="hdfs dfs -rm -r"
 
 JAR="target/crystalball.jar"
 
@@ -23,13 +24,17 @@ echo "
 runJob(){
 	START=$(date +%s)
 	case $1 in
-		1)  $HADOOP jar $JAR edu.mum.crystalball.wordcount.WordCountDriver /wordcount/input/wordcount.txt /wordcount/output
+		1)  $REMOVE_OUTPUT /wordcount/output
+			$HADOOP jar $JAR edu.mum.crystalball.wordcount.WordCountDriver /wordcount/input/wordcount.txt /wordcount/output
 		 	;;
-		2)  $HADOOP jar $JAR edu.mum.crystalball.pairs.PairsDriver /relativefrequency/input/sample.txt /relativefrequency/output/pairs
+		2)  $REMOVE_OUTPUT /relativefrequency/output/pairs
+			$HADOOP jar $JAR edu.mum.crystalball.pairs.PairsDriver /relativefrequency/input/sample.txt /relativefrequency/output/pairs
 		 	;;
-		3)  $HADOOP jar $JAR edu.mum.crystalball.stripes.StripesDriver /relativefrequency/input/sample.txt /relativefrequency/output/stripes
+		3)  $REMOVE_OUTPUT /relativefrequency/output/stripes
+			$HADOOP jar $JAR edu.mum.crystalball.stripes.StripesDriver /relativefrequency/input/sample.txt /relativefrequency/output/stripes
 		 	;;
-		4)  $HADOOP jar $JAR edu.mum.crystalball.hybrid.HybridDriver /relativefrequency/input/sample.txt /relativefrequency/output/hybrid
+		4)  $REMOVE_OUTPUT /relativefrequency/output/hybrid
+			$HADOOP jar $JAR edu.mum.crystalball.hybrid.HybridDriver /relativefrequency/input/sample.txt /relativefrequency/output/hybrid
 		    ;;
 	esac
 
@@ -93,7 +98,7 @@ case "$param" in
 				;;
 	"list"	)
 				printJobs
-				echo "Please specify a job number to run . eg 2 or 2,3,4 or 3-9 etc ?"
+				echo "Please specify a job number to run . eg 2 or 2,3,4 etc ?"
 				read userSpecifiedJob
 				validateUserSpecifiedJobs $userSpecifiedJob
 				job=$(echo "$userSpecifiedJob" | sed 's_,_ _g')
