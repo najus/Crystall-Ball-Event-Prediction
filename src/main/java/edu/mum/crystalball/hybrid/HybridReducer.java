@@ -50,13 +50,9 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
 				
 				mp.clear();
 				total = 0;
-				
-				accumulate(mp, entry);
-				wPrev = w;
-			} else {
-				accumulate(mp, entry);
-				wPrev = w;
 			}
+			accumulate(mp, entry);
+			wPrev = w;
 		}
 		
 		StringBuilder stringBuilder = getStripe(mp);

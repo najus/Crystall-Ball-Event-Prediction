@@ -11,7 +11,12 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 public class PairsMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
 
-	private Map<Pair, Integer> map = new HashMap<>();
+	private Map<Pair, Integer> map;
+
+	@Override
+	protected void setup(Context context) throws IOException, InterruptedException {
+		map = new HashMap<>();
+	}
 
 	@Override
 	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -40,6 +45,10 @@ public class PairsMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
 				}
 			}
 		}
+	}
+
+	@Override
+	protected void cleanup(Context context) throws IOException, InterruptedException {
 		for (Map.Entry<Pair, Integer> entry : map.entrySet()) {
 			context.write(entry.getKey(), new IntWritable(entry.getValue()));
 		}
